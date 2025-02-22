@@ -9,10 +9,10 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Rank Math SEO PRO
- * Version:           3.0.66
+ * Version:           3.0.81
  * Plugin URI:        https://rankmath.com/wordpress/plugin/seo-suite/
  * Description:       Super-charge your website’s SEO with the Rank Math PRO options like Site Analytics, SEO Performance, Custom Schema Templates, News/Video Sitemaps, etc.
- * Author:            Rank Math
+ * Author:            Rank Math SEO
  * Author URI:        https://rankmath.com/?utm_source=Plugin&utm_medium=Readme%20Author%20URI&utm_campaign=WP
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -27,8 +27,8 @@ defined( 'ABSPATH' ) || exit;
 add_filter( 'rank_math/admin/sensitive_data_encryption', '__return_false' );
 
 update_option( 'rank_math_connect_data', [
-     'username'  => 'info',
-     'email'     => 'info@weadown.com',
+     'username'  => 'user420',
+     'email'     => 'user420@gmail.com',
      'api_key'   => '*********',
      'plan'      => 'business',
      'connected' => true,
@@ -76,14 +76,14 @@ final class RankMathPro {
 	 *
 	 * @var string
 	 */
-	public $version = '3.0.66';
+	public $version = '3.0.81';
 
 	/**
 	 * Minimum version of Rank Math SEO.
 	 *
 	 * @var string
 	 */
-	public $rank_math_min_version = '1.0.223';
+	public $rank_math_min_version = '1.0.238';
 
 	/**
 	 * Holds various class instances
@@ -140,7 +140,7 @@ final class RankMathPro {
 		$this->includes();
 		new \RankMathPro\Installer();
 
-		add_action( 'plugins_loaded', [ $this, 'localization_setup' ] );
+		add_action( 'after_setup_theme', [ $this, 'localization_setup' ], 1 );
 		add_action( 'rank_math/loaded', [ $this, 'setup' ] );
 		add_filter( 'rank_math/license/activate_url', [ $this, 'add_query_arg' ] );
 	}
@@ -306,7 +306,7 @@ final class RankMathPro {
 		}
 
 		add_action( 'rest_api_init', [ $this, 'init_rest_api' ] );
-		add_action( 'plugins_loaded', [ $this, 'init' ], 11 );
+		add_action( 'after_setup_theme', [ $this, 'init' ], 11 );
 		new \RankMathPro\Common();
 		new \RankMathPro\Register_Vars();
 	}
